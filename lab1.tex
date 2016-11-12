@@ -1,0 +1,128 @@
+\documentclass[oneside, final, 12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{graphicx}
+%\usepackage{ucs}
+\setpapersize{A4}
+\setmarginsrb{2cm}{2cm}{2cm}{2cm}{0pt}{0mm}{0pt}{13mm}
+\usepackage{indentfirst}		%красная строка
+%\usepackage{color}
+\sloppy
+
+\begin{document}
+\begin{titlepage}
+	\begin{centering}
+		\textsc{Министерство образования и науки Российской Федерации}\\
+		\textsc{Новосибирский государственный технический университет}\\
+		\textsc{Кафедра теоритической и прикладной информатики}\\
+	\end{centering}
+	%\centerline{\hfill\hrulefill\hrulefill\hfill}
+	\vfill
+	\vfill
+	\vfill
+	\Large
+	\centerline{Лабораторная работа №1}
+	\centerline{по дисциплине "<Основы теории информации и криптографии">}
+	\normalsize
+	\vfill
+	\vfill
+	\vfill
+	\begin{flushleft}
+		\begin{minipage}{0.3\textwidth}
+			\begin{tabular}{l l}
+				Факультет: & ПМИ\\
+				Группа: & ПМИ-41\\
+				Студент: & Кислицын И. О.\\
+				Преподаватель: & Гультяева Т. А. 
+			\end{tabular}
+		\end{minipage}
+	\end{flushleft}
+	\vfill
+	\vfill
+	\begin{centering}
+		Новосибирск\\
+		2016\\
+	\end{centering}
+\end{titlepage}
+\setcounter{page}{2}
+\lstset{
+	breaklines=\true,
+	%frame=single,
+	basicstyle=\footnotesize\ttfamily,
+	tabsize=2,
+	showspaces=\false,
+	breaklines=\true,
+	breakatwhitespace=\true,
+	escapeinside={[}{]},
+	%inputencoding=utf8x,
+	extendedchars=\true,
+	keepspaces=\true
+}
+\section{Цель работы}
+Приобретение навыка решения практических задач, отражающих основные свойства источников дискретных сообщений (ИДС).
+\section{Ход работы}
+\subsection{Задача 11}
+Сообщения источника \(x_1,\,x_2,\,x_3,\,x_4\) для согласования с каналом кодируются в соответствии с таблицей.
+
+~
+
+\begin{tabular}{|c|c|c|c|c|} \hline
+	Сообщение \(x_i\) & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\) \\ \hline
+	\(p(x_i)\) & \(\frac{1}{2}\) & \(\frac{1}{4}\) & \(\frac{1}{8}\) & \(\frac{1}{8}\) \\ \hline
+	Код & \(000\) & \(011\) & \(101\) & \(100\) \\ \hline
+\end{tabular}
+
+~
+
+Пусть на вход кодера поступает сообщение \(x_3\). Вычислить дополнительную информацию об этом сообщении, которую содержит каждый последующий символ на выходе кодера.
+
+\subsection*{Решение}
+\[I(x_3;\text{'}1\text{'})=\log_2\frac{P(x_3|\text{'}1\text{'})}{P(x_3)};\]
+\[P(x_3|\text{'}1\text{'})=\frac{P(x_3,\text{'}1\text{'})}{P(\text{'}1\text{'})}=\frac{P(x_3)P(\text{'}1\text{'}|x_3)}{\sum_{j} P(x_j)P(\text{'}1\text{'}|x_j)}=\frac{1}{2};\]
+\[I(x_3;\text{'}1\text{'})=\log_2 4=2\;\text{бит};\]
+\[I(x_3;\text{'}0\text{'}|\text{'}1\text{'})=\log_2\frac{P(x_3|\text{'}10\text{'})}{P(x_3|\text{'}1\text{'})}=\log_2 1=0;\]
+\[P(x_3|\text{'}10\text{'})=\frac{P(x_3,\text{'}10\text{'})}{P(\text{'}10\text{'})}=\frac{P(x_3)P(\text{'}10\text{'}|x_3)}{\sum_{j} P(x_j)P(\text{'}10\text{'}|x_j)}=\frac{1}{2};\]
+\[I(x_3;\text{'}1\text{'}|\text{'}10\text{'})=\log_2\frac{P(x_3|\text{'}101\text{'})}{P(x_3|\text{'}10\text{'})}=\log_2 2=1\;\text{бит};\]
+\[P(x_3|\text{'}101\text{'})=1;\]
+\[I(x_3)=3\;\text{бит};\]
+\[I(x_3)\leftrightharpoons -\log_2P(x_3)=-\log_2\frac{1}{8}=3\;\text{бит}.\]
+
+\subsection{Задача 13}
+Источник вырабатывает ансамбль сообщений:
+\[X=\left\{\begin{aligned} & x_1 \quad x_2 \quad x_3 \quad x_4 \\ & 0,2 \; 0,3 \; 0,4 \; 0,1 \end{aligned}\right\}\]
+Символы в последовательности независимы. Вычислить энтропию источника и определить избыточность.
+
+\subsection*{Решение}
+\[H(\xi)=-\sum_{i=1}^{n}P(x_i)\log_2P(x_i)=1,846\;\text{бит};\]
+\[K=1-\frac{H(\xi)}{H_{max}}=1-\frac{1,846}{2}=0,07.\]
+
+\subsection{Задача 25}
+Сообщение \(X\) есть стационарная последовательность независимых символов, имеющих ряд распределения:
+
+~
+
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+	\(i\) & 1 & 2 & 3 & 4 & 5 \\ \hline
+	\(P(x_i)\) & 0,1 & 0,1 & 0,4 & 0,3 & 0,1 \\ \hline
+\end{tabular}
+
+~
+
+Сигнал \(Y\) является последовательностью двоичных символов, связанных с сообщением \(X\) по следующему правилу:
+
+\[x_1 \rightarrow 1,\,x_2 \rightarrow 0,\,x_3 \rightarrow 0,\,x_4 \rightarrow 1,\,x_5 \rightarrow 1.\]
+
+Найти средние безусловную и условную энтропии сообщения \(X\) при условии, что было получено сообщение \(Y\).
+
+\subsection*{Решение}
+%\[H(X)=-\sum_{i=1}^{5}P(x_i)\log_2 P(x_i) = 2,046 \;\text{бит};\]
+%\[y_1=1;\;y_2=0;\]
+%\[P(y_1|x_1)=P(y_1|x_4)=P(y_1|x_5)=P(y_2|x_2)=P(y_2|x_3)=1;\]
+%\[P(x,y)=P(x|y)P(y)=P(y|x)P(x);\;P(y_1)=P(y_2)=\frac{1}{2};\]
+%\[H(X|Y)=-\sum_{j=1}^{n} \sum_{k=1}^{m} P(x_j,y_k) \log_2 P(x_j|y_k) = 1,0459 \; \text{бит}.\]
+%\[H(Y|X)=-\sum_{j=1}^{n} \sum_{k=1}^{m} P(x_j,y_k) \log_2 P(y_k|x_j) = 0.\]
+\end{document}
