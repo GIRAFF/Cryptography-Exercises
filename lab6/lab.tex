@@ -1,0 +1,83 @@
+\documentclass[oneside, final, 12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{graphicx}
+%\usepackage{ucs}
+\setpapersize{A4}
+\setmarginsrb{2cm}{2cm}{2cm}{2cm}{0pt}{0mm}{0pt}{13mm}
+\usepackage{indentfirst}		%красная строка
+%\usepackage{color}
+\sloppy
+
+\begin{document}
+\begin{titlepage}
+	\begin{centering}
+		\textsc{Министерство образования и науки Российской Федерации}\\
+		\textsc{Новосибирский государственный технический университет}\\
+		\textsc{Кафедра теоритической и прикладной информатики}\\
+	\end{centering}
+	%\centerline{\hfill\hrulefill\hrulefill\hfill}
+	\vfill
+	\vfill
+	\vfill
+	\Large
+	\centerline{Лабораторная работа №6}
+	\centerline{по дисциплине "<Основы теории информации и криптографии">}
+	\centerline{\bfПостроение больших простых чисел}
+	\normalsize
+	\vfill
+	\vfill
+	\vfill
+	\begin{flushleft}
+		\begin{minipage}{0.3\textwidth}
+			\begin{tabular}{l l}
+				Факультет: & ПМИ\\
+				Группа: & ПМИ-41\\
+				Студент: & Кислицын И. О.\\
+				Преподаватель: & Гультяева Т. А. 
+			\end{tabular}
+		\end{minipage}
+	\end{flushleft}
+	\vfill
+	\vfill
+	\begin{centering}
+		Новосибирск\\
+		2016\\
+	\end{centering}
+\end{titlepage}
+\setcounter{page}{2}
+\lstset{
+	breaklines=\true,
+	%frame=single,
+	basicstyle=\footnotesize\ttfamily,
+	tabsize=2,
+	showspaces=\false,
+	breaklines=\true,
+	breakatwhitespace=\true,
+	%escapeinside={[}{]},
+	%inputencoding=utf8x,
+	extendedchars=\true,
+	keepspaces=\true,
+	language=Haskell
+}
+\section{Цель работы}
+Освоить основные программные методы тестирования чисел на простоту.
+
+\section{Задание}
+Написать программу, генерирующую простое число заданной (в битах) разрядности. Проверку простоты осуществлять методом Рабина-Миллераю
+
+\section{Текст программы}
+
+\lstset{caption=Logic.hs}
+\lstinputlisting[language=Haskell]{Logic.hs}
+
+\section{Тестирование}
+
+\lstset{caption=stdout}
+\lstinputlisting{verb}
+
+\end{document}
