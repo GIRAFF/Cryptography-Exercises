@@ -61,7 +61,7 @@ mkCtrls = do
 		msg <- get value im
 		element ic # set value
 			(intercalate "," $
-				map (binToString . encodeChar . binFromDec)
+				map (binToString . code . binFromDec)
 					(filter (\x -> x < 32 && x >= 0) $
 						readListFromString msg)
 			)
@@ -74,35 +74,23 @@ mkCtrls = do
 			map (correctChar . map (\x -> if x == '1' then 1 else 0)) $
 				splitOn "," str
 		let sp = \x ->
-			splitPlaces [(snd x) - 1, 1, length . fst $ x] (fst x)
+			splitPlaces [(snd x), 1, length . fst $ x] (fst x)
 		element dc # set value
 			(intercalate "," (map (\x ->
-				if (snd x) == 0
+				if (snd x) == zeroSyn 
 				then binToString . fst $ x
+				else if (snd x) == -1 then "ERROR"
 				else foldl (++) "" $
 					[binToString ((sp x) !! 0),
 					if ((sp x) !! 1) == [0] then "[0]" else "[1]",
 					binToString ((sp x) !! 2)]) ws)
 			)
 		element dm # set value
+			{- DANGER! Hardcode! -}
 			(intercalate ","
-			 . map (show . decFromBin . stripWord)
+			 . map (show . decFromBin . take 5)
 			 . fst . unzip $ ws)
 		return ()
-		{-ic_val <- get value ic-}
-		{-ia_val <- get value ia-}
-		{-ip_val <- get value ip-}
-		{-let code = map (\x -> read x :: Int)-}
-			{-(splitOn "," (filter (\x -> x /= ' ') ic_val))-}
-		{-let alph = getAlphFromStr ia_val ip_val-}
-		{-c # UI.clearCanvas-}
-		{-if alph == Nothing-}
-		{-then showErrorMsg-}
-		{-else do-}
-			{-let tree = buildTreeFromList (head . maybeToList $ alph)-}
-			{-drawTree c False tree rootPoint -}
-			{-element im # set value (intercalate "," (decode tree code))-}
-			{-return ()-}
 
 	{- return list of created elements -}
 	return [im, ic, p, dc, dm]

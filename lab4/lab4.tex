@@ -1,0 +1,94 @@
+\documentclass[oneside, final, 12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{graphicx}
+%\usepackage{ucs}
+\setpapersize{A4}
+\setmarginsrb{2cm}{2cm}{2cm}{2cm}{0pt}{0mm}{0pt}{13mm}
+\usepackage{indentfirst}		%красная строка
+%\usepackage{color}
+\sloppy
+
+\begin{document}
+\begin{titlepage}
+	\begin{centering}
+		\textsc{Министерство образования и науки Российской Федерации}\\
+		\textsc{Новосибирский государственный технический университет}\\
+		\textsc{Кафедра теоритической и прикладной информатики}\\
+	\end{centering}
+	%\centerline{\hfill\hrulefill\hrulefill\hfill}
+	\vfill
+	\vfill
+	\vfill
+	\Large
+	\centerline{Лабораторная работа №4}
+	\centerline{по дисциплине "<Основы теории информации и криптографии">}
+	\centerline{\bfШифры перестановки и замены}
+	\normalsize
+	\vfill
+	\vfill
+	\vfill
+	\begin{flushleft}
+		\begin{minipage}{0.3\textwidth}
+			\begin{tabular}{l l}
+				Факультет: & ПМИ\\
+				Группа: & ПМИ-41\\
+				Студент: & Кислицын И. О.\\
+				Преподаватель: & Гультяева Т. А. 
+			\end{tabular}
+		\end{minipage}
+	\end{flushleft}
+	\vfill
+	\vfill
+	\begin{centering}
+		Новосибирск\\
+		2016\\
+	\end{centering}
+\end{titlepage}
+\setcounter{page}{2}
+\lstset{
+	breaklines=\true,
+	%frame=single,
+	basicstyle=\footnotesize\ttfamily,
+	tabsize=2,
+	showspaces=\false,
+	breaklines=\true,
+	breakatwhitespace=\true,
+	%escapeinside={[}{]},
+	%inputencoding=utf8x,
+	extendedchars=\true,
+	keepspaces=\true,
+	language=Haskell
+}
+\section{Цель работы}
+Освоить основные алгоритмы шифрования перестановки и замены.
+
+\section{Задание}
+Реализовать приложение для шифрования и дешифрования сообщения по алгоритму простой подстановки.
+
+\section{Текст программы}
+
+\lstset{caption=Пользовательский интерфейс}
+\lstinputlisting[language=Haskell]{Main.hs}
+
+\lstset{caption=Вычисления}
+\lstinputlisting[language=Haskell]{Code.hs}
+
+\section{Исследования}
+\subsection*{Тестирование}
+\lstset{escapeinside={[}{]}}
+\begin{lstlisting}
+[ч],[е],[б],[у],[р],[а],[ш],[к],[а] -> ch,e,b,u,r,a,sh,k,a
+
+yo,u,_,k,a,n,t,_,k,i,l,l,_,t,h,e,_,m,e,t,a,l ->
+[ё],[у],_,[к],[а],[н],[т],_,[к],[и],[л],[л],_,[т],[х],[е],_,[м],[е],[т],[а],[л]
+\end{lstlisting}
+
+\subsection*{Типы криптоаналитического вскрытия}
+Зашифрованное сообщение невозможно вскрыть с использованием только шифротекста (\(C_i=E_k(M_i)\)), открытого текста (\(M_i,C_i=E_k(M_i)\)). Однако, алгоритм поддаётся вскрытию с помощью выбранных открытого и шифрованного текстов.
+
+\end{document}

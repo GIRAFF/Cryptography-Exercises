@@ -156,10 +156,10 @@ decodeChar (Node(Symbol(c, _))) (b:bs) par =
 
 \subsection*{Тестирование}
 \begin{enumerate}
-	\item \(12,5\;\rightarrow\;110011000,000001011\)
-	\item \(110011000,000001011\;\rightarrow\;12,5\)
-	\item \(11001[0]000,000001011\;\rightarrow\;12,5\)
-	\item \(11001[0]000,[1]00001011\;\rightarrow\;12,5\)
+	\item \(12,5\;\rightarrow\;011000011,001011000\)
+	\item \(011000011,001011000\;\rightarrow\;12,5\)
+	\item \(01100[1]011,0010110[1]0\;\rightarrow\;12,5\)
+	\item \(01100[11]11,0010110[1]0\;\rightarrow\;ERROR,5\)
 \end{enumerate}
 
 Кодовое расстояние \(d_0\,=\,3\). Значит, мы можем исправить однократную ошибку.

@@ -1,0 +1,64 @@
+html
+{
+	font-size: 10pt;
+}
+input textarea
+{
+	width: 100%;
+}
+body
+{
+	background: #121212;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+input
+{
+	background: #121212;
+	color: #ffd787;
+	border: 1px solid #8787af;
+}
+button
+{
+	background-color: #121212;
+	/*border: 1px solid #ffaf5f;*/
+	border: none;
+	color: #ffd787;
+	transition-duration: 0.4s;
+}
+button:hover
+{
+	background-color: #ffaf5f;
+	color: black;
+}
+button:active
+{
+	transform: translateY(3px);
+}
+/*input::-webkit-input-placeholder {color:#ffd787;}
+input::-moz-placeholder          {color:#ffd787;}[> Firefox 19+ <]
+input:-moz-placeholder           {color:#ffd787;}[> Firefox 18- <]
+input:-ms-input-placeholder      {color:#ffd787;}*/
+.div-input
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+.div-input > *
+{
+	margin: 0.5rem
+}
+canvas
+{
+	margin-left: auto;
+	width: 800px;
+	height: 600px;
+}
+p
+{
+	font-family: sans;
+	color: #ffd787;
+}

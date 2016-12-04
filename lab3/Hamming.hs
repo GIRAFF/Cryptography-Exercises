@@ -12,6 +12,10 @@ hm = fromLists
 	,[0,1,1,1,1,0,1,0,0]
 	,[1,0,1,1,1,0,0,1,0]
 	,[1,1,0,1,0,0,0,0,1]]
+	{-[[0,0,0,0,0,0,0,1,1]-}
+	{-,[0,0,0,1,1,1,1,0,1]-}
+	{-,[0,1,1,0,0,1,1,0,1]-}
+	{-,[1,0,1,0,1,0,1,0,0]]-}
 
 gm :: Matrix Int
 gm = fromLists
@@ -21,54 +25,44 @@ gm = fromLists
 	,[0,0,0,1,0,0,1,1,1]
 	,[0,0,0,0,1,1,1,1,0]]
 
+zeroSyn = -2
+
+{- finds number of element in list -}
+findElem :: Eq a => a -> [a] -> Int
+findElem a as = if a `elem` as
+		then fst . head . filter (\(_,x) -> x == a) . zip [0..] $ as
+		else (-1)
+
 {- gives 4-digits syndrome from 9-digits word -}
 decode :: [Int] -> [Int]
-{-code x = map (\x -> x `mod` 2) (toList (hm `multStd`-}
-		{-(transpose . fromLists $ [x])))-}
 decode w = map (\x -> x `mod` 2)
 	(toList ((fromLists [w]) `multStd` (transpose hm)))
 
+{- makes 9-digit code from 5-digit word -}
 code :: [Int] -> [Int]
 code w = map (\x -> x `mod` 2) $
 	toList ((fromLists [w]) `multStd` gm)
 
-{- inital form of _merge -}
-{-merge :: [Int] -> [Int] -> [Int]-}
-{-merge w c = _merge w c 1-}
-
-{-{- inserts elements of check-word into a data word. Initiate with n = 1. -}-}
-{-_merge :: [Int] -> [Int] -> Int -> [Int]-}
-{-_merge word [] _ = word-}
-{-_merge word (c:cs) n = _merge ((fst s) ++ [c] ++ (snd s)) cs (n*2)-}
-	{-where-}
-		{-s = splitAt (n-1) word-}
-
 {- encode single 5-bit char -}
 encodeChar :: [Int] -> [Int]
-{-encodeChar w = merge w . reverse . code $ (merge w [0,0,0,0])-}
 encodeChar w = code w
 
 {- correct 9-bit char and get syndrome -}
 correctChar :: [Int] -> ([Int], Int)
-correctChar w = if (syn /= 0)
-	then ((fst s) ++ [binReverse (w !! (syn-1))] ++ (tail . snd $ s), syn)
+correctChar w = if (syn <= (length w) && syn >= 0)
+	then ((fst s) ++ [binReverse (w !! syn)] ++ (tail . snd $ s), syn)
 	else (w,syn)
 	where
-		syn = (decFromBin . decode $ w)
-		s = splitAt (syn-1) w
+		syndrome = decode $ w
+		syn = if syndrome == [0,0,0,0] then zeroSyn
+				else findElem syndrome $ toLists . transpose $ hm
+		s = splitAt syn w
 		binReverse 1 = 0
 		binReverse _ = 1
-
-{- strip elements on power-of-2 positions -}
-{-stripWord :: [Int] -> [Int]-}
-{-stripWord w = fst (unzip (filter (not . isPow . snd) (zip w [1..]))) -}
-	{-where-}
-		{-isPow x = elem x $ take 4 . map (2^) $ [0..]-}
 
 {- get 5-bit message from 9-bit word -}
 decodeChar :: [Int] -> [Int]
 decodeChar w = take 5 . fst . correctChar $ w
-{-decodeChar w = decode w-}
 
 {- inital call for decFromBin -}
 decFromBin :: [Int] -> Int
@@ -90,3 +84,10 @@ _binFromDec n bs = _binFromDec (n `div` 2) ((n `mod` 2):bs)
 
 binToString :: [Int] -> [Char]
 binToString x = map intToDigit x
+
+corrupt :: Int -> [Int] -> [Int]
+corrupt i xs = (init . take i $ xs) ++ [rev (xs !! ((length xs) - i))]
+		++ (drop i xs)
+	where
+		rev :: Int -> Int
+		rev x = if x == 0 then 1 else 0
